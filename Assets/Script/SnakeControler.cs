@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class SnakeControler : MonoBehaviour
 {
+    [Header("RequireComponent of Snake")]
     [SerializeField] private SnakeMovement _snakeMovement;
+
+
     private Vector2Int _previousDirection = Vector2Int.zero;
     private void Update()
     {
@@ -12,15 +15,15 @@ public class SnakeControler : MonoBehaviour
         {
             dir = Vector2Int.up;
         }
-        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && _previousDirection != Vector2Int.up)
+        else if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && _previousDirection != Vector2Int.up)
         {
             dir = Vector2Int.down;
         }
-        if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && _previousDirection != Vector2Int.right)
+        else if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && _previousDirection != Vector2Int.right)
         {
             dir = Vector2Int.left;
         }
-        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && _previousDirection != Vector2Int.left)
+        else if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && _previousDirection != Vector2Int.left)
         {
             dir = Vector2Int.right;
         }

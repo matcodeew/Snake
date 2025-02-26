@@ -4,19 +4,18 @@ using UnityEngine;
 public class SnakeMovement : MonoBehaviour
 {
     [Header("Snake Corps")]
-    [SerializeField] public Vector2Int snakeHeadPosition;
     [SerializeField] private GameObject _snakeHead;
-
-    [SerializeField] public List<Vector2Int> snakeBodyPosition = new();
-    [SerializeField] private List<GameObject> _snakeBody = new();
     [SerializeField] private GameObject _bodyPrefab;
+    [HideInInspector] public Vector2Int snakeHeadPosition;
+    [HideInInspector] public List<Vector2Int> snakeBodyPosition = new();
+    [HideInInspector] private List<GameObject> _snakeBody = new();
 
     [Header("DirectionHandle")]
-    public Vector2Int snakeDirectionHandle;
+    [HideInInspector] public Vector2Int snakeDirectionHandle;
 
     [Header("Timer")]
     private float _timer;
-    private float _snakeSpeed = 0.150f;
+    [SerializeField] private float _snakeSpeed = 0.150f;
 
     [Header("Component")]
     private SnakeCollision snakeCollision;
@@ -39,21 +38,17 @@ public class SnakeMovement : MonoBehaviour
         if (direction == Vector2.zero) return;
         snakeDirectionHandle = direction;
     }
-
-    [ContextMenu("AddSnakeCorpsDebug")]
-    public void AddSnakeCorpsDebug()
-    {
-        for (int i = 0; i < _snakeBody.Count; i++)
-        {
-            snakeBodyPosition.Add(snakeHeadPosition);
-        }
-    }
-
     public void AddSnakeCorps()
     {
-        snakeBodyPosition.Add(snakeHeadPosition);
-        Vector3 headPos = new Vector3(snakeHeadPosition.x, snakeHeadPosition.y, 0);
+        Vector2Int newBodyPos = (snakeBodyPosition.Count <= 0) ?
+             snakeHeadPosition - snakeDirectionHandle :
+            snakeBodyPosition[snakeBodyPosition.Count - 1] + snakeDirectionHandle;
+
+        Vector3 headPos = new Vector3(newBodyPos.x, newBodyPos.y, 0);
+
+        snakeBodyPosition.Add(newBodyPos);
         GameObject newBody = Instantiate(_bodyPrefab, headPos, Quaternion.identity);
+        _snakeBody.Add(newBody);
     }
 
     private void MoveSnake()
