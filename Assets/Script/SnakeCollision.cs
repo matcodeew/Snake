@@ -36,7 +36,7 @@ public class SnakeCollision : MonoBehaviour
     }
     private void CheckSnakeBodyCollision()
     {
-        if (_snakeMovement.snakeBodyPosition.Count > 0) { return; }
+        if (_snakeMovement.snakeBodyPosition.Count <= 0) { return; }
 
         for (int i = 0; i < _snakeMovement.snakeBodyPosition.Count; i++)
         {

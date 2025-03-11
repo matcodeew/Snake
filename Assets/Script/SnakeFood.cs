@@ -29,9 +29,9 @@ public class SnakeFood : MonoBehaviour
 
         List<Vector2Int> freeSpaces = new List<Vector2Int>();
 
-        for (int x = -(int)_gridManager.gridWidth / 2; x < (int)_gridManager.gridWidth / 2; x++)
+        for (int x = -_gridManager.gridWidth / 2; x < _gridManager.gridWidth / 2; x++)
         {
-            for (int y = -(int)_gridManager.gridHeight / 2; y < (int)_gridManager.gridHeight / 2; y++)
+            for (int y = -_gridManager.gridHeight / 2; y < _gridManager.gridHeight / 2; y++)
             {
                 Vector2Int pos = new Vector2Int(x, y);
 
