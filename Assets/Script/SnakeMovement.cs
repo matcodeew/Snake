@@ -52,39 +52,18 @@ public class SnakeMovement : MonoBehaviour
         _snakeBody.Add(newBody);
     }
 
-   private void MoveSnake()
-{
-    snakeHeadPosition += snakeDirectionHandle;
-
-    if (_snakeHead != null)
+    private void MoveSnake()
     {
-        StartCoroutine(SnakeMovementAnim(_snakeHead.transform.position, (Vector2)snakeHeadPosition, _snakeSpeed));
+        snakeHeadPosition += snakeDirectionHandle;
+
+        if (_snakeHead != null)
+        {
+            _snakeHead.transform.position = (Vector3Int)snakeHeadPosition;
+        }
+
+        MoveSnakeBody();
+        snakeCollision.CheckCollision();
     }
-
-    MoveSnakeBody();
-    snakeCollision.CheckCollision();
-}
-
-private IEnumerator SnakeMovementAnim(Vector2 currentPos, Vector2 targetPos, float time)
-{
-    float elapsedTime = 0f;
-
-    while (elapsedTime < time)
-    {
-        _snakeHead.transform.position = Vector2.Lerp(currentPos, targetPos, elapsedTime / time);
-
-        elapsedTime += Time.deltaTime;
-
-        yield return null;
-    }
-
-    _snakeHead.transform.position = targetPos;
-}
-    private IEnumerator SnakeBodyMovementAnim()
-    {
-        yield return null;
-    }
-
     private void MoveSnakeBody()
     {
         if (snakeBodyPosition.Count > 0)
